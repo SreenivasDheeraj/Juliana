@@ -13,9 +13,7 @@ trigger=['j!']
 client = Bot(command_prefix=trigger)
 channel= client.get_channel(678286131070238740)
 
-
-#########################################Further Commands############################################################
-
+##########################################Basic ping commands####################################
 @client.event
 async def on_ready():
     print('Logged in as')
@@ -25,8 +23,28 @@ async def on_ready():
     print('------')
     return
 
+@client.event
+async def on_message(message):
+    # we do not want the bot to reply to itself
+    if message.author == client.user:
+        return
+
+    if message.content.startswith(trigger[0]+'hello'):
+        print("triggered")
+        msg = 'Hello {0.author.mention}'.format(message)
+        await message.channel.send(msg)
+        return
+    
 
 
+    if message.content.startswith('Fuck you Juliana' and 'Fuck you {client.user}' and 'fuck u julia' and 'fuck you {client.user}'):
+        msg = 'I\'d Fuck you too qt {0.author.mention} :wink:'.format(message)
+
+        await message.channel.send(msg)
+        return
+
+
+#########################################Further Commands############################################################
 @client.command(name= '8ball',pass_context=True)
 @asyncio.coroutine
 async def eight_ball(context):
@@ -53,6 +71,5 @@ async def eight_ball(context):
     await context.channel.send(random.choice(possible_responses)+ context.message.author.mention)
     return
 
-# @client.event
 #########################################RUN#########################################################################
 client.run(TOKEN)
