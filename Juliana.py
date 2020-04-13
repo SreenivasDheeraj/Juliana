@@ -1,4 +1,4 @@
-#############################IMPORT#########################################################
+########################################## - Imports - ################################################
 import discord as dc
 from discord.ext.commands import Bot
 from discord.utils import get as gt
@@ -6,7 +6,7 @@ import asyncio
 import os
 import random
 from dotenv import load_dotenv
-############################init##############################################################
+########################################## - Init - ###################################################
 TOKEN = 'Njc4Mjg2MTMxMDcwMjM4NzQw.XkgnJw.e_jqfJbM6acEt33Y_YiOqnfdpAM'
 
 trigger=['j!']
@@ -34,7 +34,7 @@ async def on_hello(message):
     await message.channel.send(msg)
     return
     
-######################################### - Further Commands - ############################################################
+########################################## - Further Commands - ########################################
 # 8 Ball Random Reponse
 @client.command(name='8ball', pass_context=True)
 async def eight_ball(context):
@@ -62,6 +62,6 @@ async def eight_ball(context):
     await context.channel.send(random.choice(possible_responses) + context.message.author.mention)
     return
 
-#########################################RUN#########################################################################
+########################################## - RUN - #####################################################
 # Run the Client
 client.run(TOKEN)
