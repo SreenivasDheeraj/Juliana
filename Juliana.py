@@ -25,50 +25,58 @@ async def on_ready():
 
 @client.event
 async def on_message(message):
-    # we do not want the bot to reply to itself
+
+    # Bot should not reply to itself
     if message.author == client.user:
         return
 
+    # Hello Message Reply
     if message.content.startswith(trigger[0]+'hello'):
-        print("triggered")
+        print("Triggered Hello Response")
+
         msg = 'Hello {0.author.mention}'.format(message)
         await message.channel.send(msg)
         return
     
-
-
+    # Custom Message
     if message.content.startswith('Fuck you Juliana' and 'Fuck you {client.user}' and 'fuck u julia' and 'fuck you {client.user}'):
+        print("Triggered Custom Response")
+        
         msg = 'I\'d Fuck you too qt {0.author.mention} :wink:'.format(message)
-
         await message.channel.send(msg)
         return
 
-
 #########################################Further Commands############################################################
-@client.command(name= '8ball',pass_context=True)
-@asyncio.coroutine
+
+# Random Response
+@client.command(name='8ball', pass_context=True)
+#@asyncio.coroutine
 async def eight_ball(context):
-    possible_responses=['As I see it, yes',
-    'Ask again later',
-    'Better not tell you now',
-    'Cannot predict now',
-    'Concentrate and ask again',
-    'Don’t count on it',
-    'It is certain',
-    'It is decidedly so',
-    'Most likely',
-    'My reply is no',
-    'My sources say no',
-    'Outlook not so good',
-    'Outlook good',
-    'Reply hazy, try again',
-    'Signs point to yes',
-    'Very doubtful',
-    'Without a doubt',
-    'Yes',
-    'Yes – definitely',
-    "You may rely on it"]
-    await context.channel.send(random.choice(possible_responses)+ context.message.author.mention)
+    print("Triggered Random Response")
+
+    possible_responses=[
+        'As I see it, yes',
+        'Ask again later',
+        'Better not tell you now',
+        'Cannot predict now',
+        'Concentrate and ask again',
+        'Don’t count on it',
+        'It is certain',
+        'It is decidedly so',
+        'Most likely',
+        'My reply is no',
+        'My sources say no',
+        'Outlook not so good',
+        'Outlook good',
+        'Reply hazy, try again',
+        'Signs point to yes',
+        'Very doubtful',
+        'Without a doubt',
+        'Yes',
+        'Yes – definitely',
+        "You may rely on it"
+    ]
+    await context.channel.send(random.choice(possible_responses) + context.message.author.mention)
     return
 
 #########################################RUN#########################################################################
