@@ -69,13 +69,13 @@ async def on_addresp(context, *, message=None):
 ########################################## - Admin Commands - ########################################
 @client.command(name='ban', pass_context=True)
 async def ban(context, user:dc.Member, *, reasons=None):
-    await user.send("I'm sorry, You have been banned from " + user.get_guild() + " for " + reasons)
+    await user.send("I'm sorry, You have been banned from " + user.guild.name + " for " + reasons)
     await user.ban(reason=reasons)
     return
 
 @client.command(name='kick', pass_context=True)
 async def kick(context, user:dc.Member, *, reasons=None):
-    await user.send("I'm sorry, You have been kicked from " + user.get_guild() +" for " + reasons)
+    await user.send("I'm sorry, You have been kicked from " + user.guild.name +" for " + reasons)
     await user.kick(reason=reasons)
     return
     
