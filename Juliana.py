@@ -13,7 +13,7 @@ trigger=['j!']
 client = Bot(command_prefix=trigger)
 # channel= client.get_channel(678286131070238740)
 
-##########################################Basic ping commands####################################
+########################################## - Basic ping commands - ####################################
 @client.event
 async def on_ready():
     print('Logged in as')
@@ -25,18 +25,20 @@ async def on_ready():
 
 @client.command(name='hello',pass_context=True)
 async def on_hello(message):
-    # we do not want the bot to reply to itself
+    # Bot should not reply to itself
     if message.author == client.user:
         return
-    print("triggered")
+
+    print("Trigerred Hello Response to {0.author.mention}")
     msg = 'Hello {0.author.mention}'.format(message)
     await message.channel.send(msg)
     return
     
-#########################################Further Commands############################################################
-@client.command(name= '8ball',pass_context=True)
+######################################### - Further Commands - ############################################################
+# 8 Ball Random Reponse
+@client.command(name='8ball', pass_context=True)
 async def eight_ball(context):
-    print('triggered 8ball')
+    print("Trigerred 8ball Reponse to {0.author.mention}")
     possible_responses=['As I see it, yes',
     'Ask again later',
     'Better not tell you now',
@@ -57,7 +59,7 @@ async def eight_ball(context):
     'Yes',
     'Yes – definitely',
     "You may rely on it"]
-    await context.channel.send(random.choice(possible_responses)+ context.message.author.mention)
+    await context.channel.send(random.choice(possible_responses) + context.message.author.mention)
     return
 
 #########################################RUN#########################################################################
