@@ -9,6 +9,7 @@ from dotenv import load_dotenv
 
 import BotLibrary
 ########################################## - Init - ###################################################
+print("Init Bot...\n")
 TOKEN = 'Njc4Mjg2MTMxMDcwMjM4NzQw.XkgnJw.e_jqfJbM6acEt33Y_YiOqnfdpAM'
 trigger = ['j!']
 client = Bot(command_prefix=trigger)
@@ -18,6 +19,8 @@ client = Bot(command_prefix=trigger)
 CustomResponses_path = 'CustomResponseCommands.txt'
 BotLibrary.AddCustomResponses(client, CustomResponses_path)
 
+print("\n\n")
+
 ########################################## - Basic ping commands - ####################################
 @client.event
 async def on_ready():
@@ -26,6 +29,7 @@ async def on_ready():
     print(client.user.id)
     print(str(client.user))
     print('------')
+    print("\n\n")
     return
     
 
@@ -63,16 +67,16 @@ async def on_addresp(context, *, message=None):
     return
 
 ########################################## - Admin Commands - ########################################
-@client.command(name='ban',pass_context=True)
-async def ban(context,user:dc.Member,*,reasons=None):
+@client.command(name='ban', pass_context=True)
+async def ban(context, user:dc.Member, *, reasons=None):
+    await user.send("I'm sorry, You have been banned from " + user.get_guild() + " for " + reasons)
     await user.ban(reason=reasons)
-    await user.send("I'm sorry, You have been banned from "+client.get_guild+" for "+ reasons)
     return
 
-@client.command(name='kick',pass_context=True)
-async def kick(context,user:dc.Member,*,reasons=None):
+@client.command(name='kick', pass_context=True)
+async def kick(context, user:dc.Member, *, reasons=None):
+    await user.send("I'm sorry, You have been kicked from " + user.get_guild() +" for " + reasons)
     await user.kick(reason=reasons)
-    await user.send("I'm sorry, You have been kicked from "+client.get_guild+" for "+ reasons)
     return
     
 ########################################## - Further Commands - ########################################
