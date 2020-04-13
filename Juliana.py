@@ -6,12 +6,17 @@ import asyncio
 import os
 import random
 from dotenv import load_dotenv
+
+import BotLibrary
 ########################################## - Init - ###################################################
 TOKEN = 'Njc4Mjg2MTMxMDcwMjM4NzQw.XkgnJw.e_jqfJbM6acEt33Y_YiOqnfdpAM'
-
-trigger=['j!']
+trigger = ['j!']
 client = Bot(command_prefix=trigger)
-# channel= client.get_channel(678286131070238740)
+# channel = client.get_channel(678286131070238740)
+
+# Load Custom Response Commands from file
+CustomResponses_path = 'CustomResponseCommands.txt'
+BotLibrary.AddCustomResponses(client, CustomResponses_path)
 
 ########################################## - Basic ping commands - ####################################
 @client.event
@@ -22,6 +27,7 @@ async def on_ready():
     print(str(client.user))
     print('------')
     return
+    
 
 @client.command(name='hello',pass_context=True)
 async def on_hello(message):
@@ -29,16 +35,51 @@ async def on_hello(message):
     if message.author == client.user:
         return
 
-    print("Trigerred Hello Response to {0.author.mention}")
+    print("Trigerred Hello Response to", message)
     msg = 'Hello {0.author.mention}'.format(message)
     await message.channel.send(msg)
+    return
+
+@client.command(name='addresp', pass_context=True)
+async def on_addresp(context, *, message=None):
+    if message == None:
+        await context.channel.send("Give in format: TriggerWord - ResponseText " + context.message.author.mention)
+        return
+
+    print("Trigerred Add Reponse ", message)
+    # Parse to get triggerWord and ResponseText
+    MessageSplitUp = message.strip().split(' - ')
+    if len(MessageSplitUp) == 1 or MessageSplitUp[0] == '':
+        await context.channel.send("Give in format: TriggerWord - ResponseText " + context.message.author.mention)
+        return
+    triggerWord = MessageSplitUp[0]
+    ResponseText = ' - '.join(MessageSplitUp[1:])
+    print("TriggerWord - ", triggerWord)
+    print("ResponseText - ", ResponseText)
+
+    # Add to Response
+    BotLibrary.AddResponseCommand(client, triggerWord, ResponseText)
+    await context.channel.send("Added Response " + context.message.author.mention)
+    return
+
+########################################## - Admin Commands - ########################################
+@client.command(name='ban',pass_context=True)
+async def ban(context,user:dc.Member,*,reasons=None):
+    await user.ban(reason=reasons)
+    await user.send("I'm sorry, You have been banned from "+client.get_guild+" for "+ reasons)
+    return
+
+@client.command(name='kick',pass_context=True)
+async def kick(context,user:dc.Member,*,reasons=None):
+    await user.kick(reason=reasons)
+    await user.send("I'm sorry, You have been kicked from "+client.get_guild+" for "+ reasons)
     return
     
 ########################################## - Further Commands - ########################################
 # 8 Ball Random Reponse
 @client.command(name='8ball', pass_context=True)
 async def eight_ball(context):
-    print("Trigerred 8ball Reponse to {0.author.mention}")
+    print("Trigerred 8ball Reponse to", context)
     possible_responses=['As I see it, yes',
     'Ask again later',
     'Better not tell you now',
@@ -61,6 +102,8 @@ async def eight_ball(context):
     "You may rely on it"]
     await context.channel.send(random.choice(possible_responses) + context.message.author.mention)
     return
+
+
 
 ########################################## - RUN - #####################################################
 # Run the Client
