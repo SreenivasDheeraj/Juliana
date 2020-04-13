@@ -11,7 +11,7 @@ TOKEN = 'Njc4Mjg2MTMxMDcwMjM4NzQw.XkgnJw.e_jqfJbM6acEt33Y_YiOqnfdpAM'
 
 trigger=['j!']
 client = Bot(command_prefix=trigger)
-channel= client.get_channel(678286131070238740)
+# channel= client.get_channel(678286131070238740)
 
 ##########################################Basic ping commands####################################
 @client.event
@@ -23,60 +23,41 @@ async def on_ready():
     print('------')
     return
 
-@client.event
-async def on_message(message):
-
-    # Bot should not reply to itself
+@client.command(name='hello',pass_context=True)
+async def on_hello(message):
+    # we do not want the bot to reply to itself
     if message.author == client.user:
         return
-
-    # Hello Message Reply
-    if message.content.startswith(trigger[0]+'hello'):
-        print("Triggered Hello Response")
-
-        msg = 'Hello {0.author.mention}'.format(message)
-        await message.channel.send(msg)
-        return
+    print("triggered")
+    msg = 'Hello {0.author.mention}'.format(message)
+    await message.channel.send(msg)
+    return
     
-    # Custom Message
-    if message.content.startswith('Fuck you Juliana' and 'Fuck you {client.user}' and 'fuck u julia' and 'fuck you {client.user}'):
-        print("Triggered Custom Response")
-        
-        msg = 'I\'d Fuck you too qt {0.author.mention} :wink:'.format(message)
-        await message.channel.send(msg)
-        return
-
 #########################################Further Commands############################################################
-
-# Random Response
-@client.command(name='8ball', pass_context=True)
-#@asyncio.coroutine
+@client.command(name= '8ball',pass_context=True)
 async def eight_ball(context):
-    print("Triggered Random Response")
-
-    possible_responses=[
-        'As I see it, yes',
-        'Ask again later',
-        'Better not tell you now',
-        'Cannot predict now',
-        'Concentrate and ask again',
-        'Don’t count on it',
-        'It is certain',
-        'It is decidedly so',
-        'Most likely',
-        'My reply is no',
-        'My sources say no',
-        'Outlook not so good',
-        'Outlook good',
-        'Reply hazy, try again',
-        'Signs point to yes',
-        'Very doubtful',
-        'Without a doubt',
-        'Yes',
-        'Yes – definitely',
-        "You may rely on it"
-    ]
-    await context.channel.send(random.choice(possible_responses) + context.message.author.mention)
+    print('triggered 8ball')
+    possible_responses=['As I see it, yes',
+    'Ask again later',
+    'Better not tell you now',
+    'Cannot predict now',
+    'Concentrate and ask again',
+    'Don’t count on it',
+    'It is certain',
+    'It is decidedly so',
+    'Most likely',
+    'My reply is no',
+    'My sources say no',
+    'Outlook not so good',
+    'Outlook good',
+    'Reply hazy, try again',
+    'Signs point to yes',
+    'Very doubtful',
+    'Without a doubt',
+    'Yes',
+    'Yes – definitely',
+    "You may rely on it"]
+    await context.channel.send(random.choice(possible_responses)+ context.message.author.mention)
     return
 
 #########################################RUN#########################################################################
