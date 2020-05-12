@@ -2,6 +2,8 @@
 import discord as dc
 from discord.ext.commands import Bot
 from discord.utils import get as gt
+from discord import Member
+from discord.ext.commands import has_permissions, MissingPermissions
 import asyncio
 import os
 import random
