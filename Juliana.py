@@ -99,12 +99,23 @@ async def kick(context,user:dc.Member,*,reasons=None):
 async def mute(ctx, member: dc.Member):
      if ctx.message.author.guild_permissions.administrator:
         role = dc.utils.get(member.guild.roles, name='Muted')
-        await member.add_roles(member, role)
-        embed=dc.Embed(title="User Muted!", description=("**"+member+"** was muted by **"+str(ctx.message.author)+"**!").format(member, ctx.message.author), color=0xff00f6)
-        await ctx.send(embed=embed)
+        print(str(role)+"\n")
+        if str(role) == "None":
+            author = ctx.message.author
+            # split the string to get the rolename to create
+            # role_name = ctx.message.content.lower().split("!rolecreate ", maxsplit=1)[1]
+            perms = dc.Permissions(send_messages=False, read_messages=True)
+            role = await Guild.create_role(name="Muted", colour=dc.Colour(0x000000),permissions=perms)
+            await member.add_roles(member, role)
+            embed=dc.Embed(title="User Muted!", description=("**"+member+"** was muted by **"+str(ctx.message.author)+"**!").format(member, ctx.message.author), color=0xff00f6)
+            await ctx.send(embed=embed)
+        else:
+            await member.add_roles(member, role)
+            embed=dc.Embed(title="User Muted!", description=("**"+member+"** was muted by **"+str(ctx.message.author)+"**!").format(member, ctx.message.author), color=0xff00f6)
+            await ctx.send(embed=embed)
      else:
-        embed=dc.Embed(title="Permission Denied.", description="You don't have permission to use this command.", color=0xff00f6)
-        await ctx.say(embed=embed)
+         embed=dc.Embed(title="Permission Denied.", description="You don't have permission to use this command.", color=0xff00f6)
+         await ctx.say(embed=embed)
 #unban does not work
 @client.command(name='unban',pass_context=True)
 async def unban(context,user:dc.Member,*,reasons=None):
