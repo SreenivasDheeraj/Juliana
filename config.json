@@ -1,0 +1,12 @@
+{
+    "BotName": "Juliana", 
+    "TOKEN": "Njc4Mjg2MTMxMDcwMjM4NzQw.XkgnJw.e_jqfJbM6acEt33Y_YiOqnfdpAM", 
+    "Trigger": ["j!"], 
+
+    "Commands_Path": "Commands/", 
+    "Utils_Path": "Utils/", 
+
+    "TriggerResponses_Path": "CustomTriggerResponses/", 
+    "TriggerResponseCode": "Utils/CustomTriggerResponseCode.txt", 
+    "AddedResponses_Path": "CustomTriggerResponses/AddedResponses.csv"
+}
