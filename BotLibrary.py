@@ -11,6 +11,7 @@ from tqdm import tqdm
 
 # Params
 configData = {}
+client = None
 
 # Bot Main Functions
 # Init
@@ -30,14 +31,14 @@ def AddCommandsFromFile(client, cmdpath):
     exec(CommandsCode)
 
 
-def AddResponseCommand(client, triggerWord, ResponseText):
+def AddResponseCommand(triggerWord, ResponseText):
     ''' Adds Trigger-Response Client Commands to the client '''
     NewClientCommandCode = open(configData['TriggerResponseCode'], 'r').read()
     exec_code = NewClientCommandCode.replace('triggerWord', "'" + triggerWord + "'")
     exec_code = exec_code.replace('ResponseText', "'" + ResponseText + "'")
     exec(exec_code)
 
-def AddCustomResponses(client, path=None):
+def AddCustomResponses(path=None):
     ''' Adds Custom Trigger-Response from a file or files in a directory '''
 
     # Check if file or dir
@@ -48,7 +49,7 @@ def AddCustomResponses(client, path=None):
         for fname in os.listdir(path):
             fpath = os.path.join(path, fname)
             if os.path.isfile(fpath):
-                AddCustomResponses(client, path=fpath)
+                AddCustomResponses(path=fpath)
 
     elif os.path.isfile(path):
         print("Adding Custom Responses from file", path)
@@ -73,7 +74,7 @@ def AddCustomResponses(client, path=None):
                 for i in tqdm(range(data.shape[0])):
                     print(str(n_cmds+1) + ':', data[triggerKey][i], '-', data[responseKey][i])
                     # Add to client
-                    AddResponseCommand(client, data[triggerKey][i], data[responseKey][i])
+                    AddResponseCommand(data[triggerKey][i], data[responseKey][i])
 
                     n_cmds += 1
 
@@ -93,6 +94,6 @@ def AddCustomResponses(client, path=None):
                 print(str(n_cmds+1) + ':', triggerWord, '-', ResponseText)
 
                 # Add to client
-                AddResponseCommand(client, triggerWord, ResponseText)
+                AddResponseCommand(triggerWord, ResponseText)
 
                 n_cmds += 1

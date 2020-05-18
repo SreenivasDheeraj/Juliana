@@ -2,9 +2,6 @@
 8Ball Commands for the bot
 '''
 
-# Imports
-# import random
-
 # Main Functions
 @client.command(name='8ball', pass_context=True)
 async def eight_ball(context):

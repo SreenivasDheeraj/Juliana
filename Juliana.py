@@ -30,10 +30,11 @@ client = Bot(command_prefix=trigger)
 
 # Init Script Data
 BotLibrary.configData = configData
+BotLibrary.client = client
 
 # Load Custom Response Commands from directory
 CustomResponses_path = configData['TriggerResponses_Path']
-BotLibrary.AddCustomResponses(client, path=CustomResponses_path)
+BotLibrary.AddCustomResponses(path=CustomResponses_path)
 
 print("\n\n")
 

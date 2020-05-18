@@ -2,9 +2,6 @@
 Basic Commands for the bot
 '''
 
-# Imports
-
-
 # Main Functions
 # Hello Command
 @client.command(name='hello',pass_context=True)

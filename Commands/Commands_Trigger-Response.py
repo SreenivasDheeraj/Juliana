@@ -2,9 +2,6 @@
 Add Trigger-Response Commands for the bot
 '''
 
-# Imports
-
-
 # Main Functions
 # Add Response
 @client.command(name='addresp', pass_context=True)
@@ -29,11 +26,11 @@ async def on_addresp(context, *, message=None):
     print("ResponseText - ", ResponseText)
 
     # Add to Response
-    BotLibrary.AddResponseCommand(client, triggerWord, ResponseText)
+    BotLibrary.AddResponseCommand(triggerWord, ResponseText)
     # Add to AddedResponses.csv
     data = pd.read_csv(configData['AddedResponses_Path'])
-    data.append({"trigger": triggerWord, "response": ResponseText})
-    data.to_csv(configData['AddedResponses_Path'])
+    data = data.append({"trigger": triggerWord, "response": ResponseText}, ignore_index=True)
+    data.to_csv(configData['AddedResponses_Path'], index=False)
 
     await context.channel.send("Added Response " + context.message.author.mention)
     return
