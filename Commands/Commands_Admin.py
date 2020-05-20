@@ -7,8 +7,6 @@ Admin Commands for the bot
 from discord import Member
 from discord.ext.commands import has_permissions
 
-# Init
-
 # Main Functions
 # Ban User
 @client.command(name='ban',pass_context=True)

@@ -1,12 +1,16 @@
 {
-    "BotName": "Juliana", 
-    "TOKEN": "Njc4Mjg2MTMxMDcwMjM4NzQw.XkgnJw.e_jqfJbM6acEt33Y_YiOqnfdpAM", 
-    "Trigger": ["j!","<@!678286131070238740> "], 
+    "bot_name": "Juliana", 
+    "bot_token": "Njc4Mjg2MTMxMDcwMjM4NzQw.XkgnJw.e_jqfJbM6acEt33Y_YiOqnfdpAM", 
+    "bot_trigger": ["j!","<@!678286131070238740> "], 
 
-    "Commands_Path": "Commands/", 
-    "Utils_Path": "Utils/", 
+    "commands_path": "Commands/", 
+    "utils_path": "Utils/", 
 
-    "TriggerResponses_Path": "CustomTriggerResponses/", 
-    "TriggerResponseCode": "Utils/CustomTriggerResponseCode.txt", 
-    "AddedResponses_Path": "CustomTriggerResponses/AddedResponses.csv"
+    "firebase_credentials_path": "juliana-d1571-firebase-adminsdk-effw8-84d8749507.json", 
+    "firebase_collection_name_trigger-response_metadata": "trigger-response_metadata", 
+    "firebase_collection_name_trigger-response_data": "trigger-response_data", 
+
+    "trigger-response_path": "CustomTriggerResponses/", 
+    "trigger-response_code": "Utils/CustomTriggerResponseCode.txt", 
+    "added_responses_path": "CustomTriggerResponses/AddedResponses.csv"
 }

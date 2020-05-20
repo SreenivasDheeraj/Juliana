@@ -7,8 +7,12 @@ Add Trigger-Response Commands for the bot
 @client.command(name='addresp', pass_context=True)
 async def on_addresp(context, *, message=None):
     # Imports
-    import BotLibrary
     import pandas as pd
+    import BotLibrary
+    from Utils import FirebaseLibrary
+    FirebaseLibrary.configData = configData
+    FirebaseLibrary.DBInit()
+    
 
     if message == None:
         await context.channel.send("Give in format: TriggerWord - ResponseText " + context.message.author.mention)
@@ -27,10 +31,15 @@ async def on_addresp(context, *, message=None):
 
     # Add to Response
     BotLibrary.AddResponseCommand(triggerWord, ResponseText)
+
+    ## DEPRECIATED - SHIFTED TO CLOUD
     # Add to AddedResponses.csv
-    data = pd.read_csv(configData['AddedResponses_Path'])
-    data = data.append({"trigger": triggerWord, "response": ResponseText}, ignore_index=True)
-    data.to_csv(configData['AddedResponses_Path'], index=False)
+    #data = pd.read_csv(configData['added_responses_path'])
+    #data = data.append({"trigger": triggerWord, "response": ResponseText}, ignore_index=True)
+    #data.to_csv(configData['added_responses_path'], index=False)
+    ## DEPRECIATED - SHIFTED TO CLOUD
+
+    FirebaseLibrary.AddTriggerResponse2Cloud(triggerWord, ResponseText)
 
     await context.channel.send("Added Response " + context.message.author.mention)
     return

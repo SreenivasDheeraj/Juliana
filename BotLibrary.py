@@ -9,7 +9,7 @@ import pandas as pd
 import os
 from tqdm import tqdm
 
-# Params
+# Global Params
 configData = {}
 client = None
 
@@ -33,7 +33,7 @@ def AddCommandsFromFile(client, cmdpath):
 
 def AddResponseCommand(triggerWord, ResponseText):
     ''' Adds Trigger-Response Client Commands to the client '''
-    NewClientCommandCode = open(configData['TriggerResponseCode'], 'r').read()
+    NewClientCommandCode = open(configData['trigger-response_code'], 'r').read()
     exec_code = NewClientCommandCode.replace('triggerWord', "'" + triggerWord + "'")
     exec_code = exec_code.replace('ResponseText', "'" + ResponseText + "'")
     exec(exec_code)
