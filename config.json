@@ -1,7 +1,7 @@
 {
     "BotName": "Juliana", 
     "TOKEN": "Njc4Mjg2MTMxMDcwMjM4NzQw.XkgnJw.e_jqfJbM6acEt33Y_YiOqnfdpAM", 
-    "Trigger": ["j!"], 
+    "Trigger": ["j!","<@!678286131070238740> "], 
 
     "Commands_Path": "Commands/", 
     "Utils_Path": "Utils/", 
