@@ -39,13 +39,12 @@ FirebaseLibrary.DBInit()
 
 
 # Load Custom Response Commands from directory
-CustomResponses_path = configData['trigger-response_path']
-BotLibrary.AddCustomResponses(path=CustomResponses_path)
+BotLibrary.AddCustomResponses_FromPath(path=configData['trigger-response_path'])
 # Load Custom Response Commands from Cloud
-for tr in FirebaseLibrary.GetAllTriggerResponses():
-    tr = tr.to_dict()
-    if 'trigger' in tr.keys() and 'response' in tr.keys():
-        BotLibrary.AddResponseCommand(tr['trigger'], tr['response'])
+print("Adding Custom Responses from Cloud")
+BotLibrary.AddCustomResponses_FromData(FirebaseLibrary.GetAllTriggerResponses())
+
+print("\nAll Custom Responses Loaded\n")
 
 print("\n\n")
 
@@ -63,17 +62,17 @@ async def on_ready():
 
 ########################################## - Basic Ping Commands - ####################################
 # Basic Commands
-BotLibrary.AddCommandsFromFile(client, 'Commands/Commands_Basic.py')
+BotLibrary.AddCommandsFromFile(client, 'Commands/Commands_Basic.py', globals())
 
 ########################################## - Admin Commands - ########################################
-BotLibrary.AddCommandsFromFile(client, 'Commands/Commands_Admin.py')
+BotLibrary.AddCommandsFromFile(client, 'Commands/Commands_Admin.py', globals())
     
 ########################################## - Further Commands - ########################################
 # 8 Ball Random Reponse
-BotLibrary.AddCommandsFromFile(client, 'Commands/Commands_8Ball.py')
+BotLibrary.AddCommandsFromFile(client, 'Commands/Commands_8Ball.py', globals())
 
 # Trigger-Response Commands
-BotLibrary.AddCommandsFromFile(client, 'Commands/Commands_Trigger-Response.py')
+BotLibrary.AddCommandsFromFile(client, 'Commands/Commands_Trigger-Response.py', globals())
 
 ########################################## - RUN - #####################################################
 # Run the Client

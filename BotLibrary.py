@@ -25,10 +25,13 @@ def RunBot(client, TOKEN):
     client.run(TOKEN)
 
 # Bot Command Functions
-def AddCommandsFromFile(client, cmdpath):
+def AddCommandsFromFile(client, cmdpath, globals=None):
     ''' Adds Python Client Commands from a file to the client '''
     CommandsCode = open(cmdpath, 'r').read()
-    exec(CommandsCode)
+    if globals == None:
+        exec(CommandsCode)
+    else:
+        exec(CommandsCode, globals)
 
 
 def AddResponseCommand(triggerWord, ResponseText):
@@ -38,7 +41,7 @@ def AddResponseCommand(triggerWord, ResponseText):
     exec_code = exec_code.replace('ResponseText', "'" + ResponseText + "'")
     exec(exec_code)
 
-def AddCustomResponses(path=None):
+def AddCustomResponses_FromPath(path):
     ''' Adds Custom Trigger-Response from a file or files in a directory '''
 
     # Check if file or dir
@@ -49,7 +52,7 @@ def AddCustomResponses(path=None):
         for fname in os.listdir(path):
             fpath = os.path.join(path, fname)
             if os.path.isfile(fpath):
-                AddCustomResponses(path=fpath)
+                AddCustomResponses_FromPath(path=fpath)
 
     elif os.path.isfile(path):
         print("Adding Custom Responses from file", path)
@@ -97,3 +100,11 @@ def AddCustomResponses(path=None):
                 AddResponseCommand(triggerWord, ResponseText)
 
                 n_cmds += 1
+
+def AddCustomResponses_FromData(data):
+    ''' Adds Custom Trigger-Response from array of dictionaries '''
+
+    for tr in data:
+        tr = tr.to_dict()
+        if 'trigger' in tr.keys() and 'response' in tr.keys():
+            AddResponseCommand(tr['trigger'], tr['response'])

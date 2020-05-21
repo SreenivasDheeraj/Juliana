@@ -8,11 +8,8 @@ Add Trigger-Response Commands for the bot
 async def on_addresp(context, *, message=None):
     # Imports
     import pandas as pd
-    import BotLibrary
-    from Utils import FirebaseLibrary
-    FirebaseLibrary.configData = configData
-    FirebaseLibrary.DBInit()
-    
+    global BotLibrary
+    global FirebaseLibrary
 
     if message == None:
         await context.channel.send("Give in format: TriggerWord - ResponseText " + context.message.author.mention)
