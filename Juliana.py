@@ -9,6 +9,7 @@ import json
 
 import BotLibrary
 from Utils import FirebaseLibrary
+from Utils import MiscLibrary
 
 import random
 from discord import Member
@@ -73,6 +74,9 @@ BotLibrary.AddCommandsFromFile(client, 'Commands/Commands_8Ball.py', globals())
 
 # Trigger-Response Commands
 BotLibrary.AddCommandsFromFile(client, 'Commands/Commands_Trigger-Response.py', globals())
+
+# Stack Overflow Commands
+BotLibrary.AddCommandsFromFile(client, 'Commands/Commands_StackOverflow.py', globals())
 
 ########################################## - RUN - #####################################################
 # Run the Client
