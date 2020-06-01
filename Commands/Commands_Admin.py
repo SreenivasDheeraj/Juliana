@@ -63,7 +63,8 @@ async def mute(ctx, member: dc.Member):
 # Unban User
 # DOESNT WORK
 @client.command(name='unban',pass_context=True)
-'''async def unban(context,user:dc.Member,*,reasons=None):
+'''
+async def unban(context,user:dc.Member,*,reasons=None):
     if reasons==None:
         reasons= "no reason :person_shrugging:"
     await user.unban(reason=reasons)
@@ -71,3 +72,15 @@ async def mute(ctx, member: dc.Member):
     await context.say(embed=embed)
     await user.send(embed=embed)
     return
+'''
+async def unban(context , * , member ):
+    banned_users = await context.guild.bans()
+    member_name , member_discriminator = member.split('#')
+    #Should be of the format membername#discriminator code Ex: unban Shiki Brekksten#7042
+    for ban_entry in banned_users:
+        user = ban_entry.user
+        if( user.name , user.discriminator ) == ( member_name, member_discriminator ):
+            await context.guild.unban(user)
+            print(f"Unbanned {user.name}#{user.discriminator}")
+            await context.send(f"Unbanned {user.name}#{user.discriminator}")
+            return 
