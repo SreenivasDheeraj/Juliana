@@ -63,7 +63,7 @@ async def mute(ctx, member: dc.Member):
 # Unban User
 # DOESNT WORK
 @client.command(name='unban',pass_context=True)
-async def unban(context,user:dc.Member,*,reasons=None):
+'''async def unban(context,user:dc.Member,*,reasons=None):
     if reasons==None:
         reasons= "no reason :person_shrugging:"
     await user.unban(reason=reasons)
