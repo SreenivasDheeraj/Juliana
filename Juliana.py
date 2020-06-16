@@ -11,6 +11,7 @@ import BotLibrary
 from Utils import FirebaseLibrary
 from Utils import MiscLibrary
 
+import os
 import random
 from discord import Member
 from discord.ext.commands import has_permissions
@@ -80,14 +81,12 @@ BotLibrary.AddCommandsFromFile(client, 'Commands/Commands_StackOverflow.py', glo
 
 ########################################## - LOAD COGS - #####################################################
 
-
-import os
 for cog in os.listdir(os.path.abspath("Cogs")):
     if cog.endswith(".py"):
         try:
-            cog = f"Cogs.{cog.replace('.py','')}"
+            cog = f"Cogs.{cog.replace('.py', '')}"
             client.load_extension(cog)
-            print("Loaded ",cog)
+            print("Loaded ", cog)
         
         except Exception as e:
             print(f"{cog} cannot be loaded")
