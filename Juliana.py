@@ -78,6 +78,21 @@ BotLibrary.AddCommandsFromFile(client, 'Commands/Commands_Trigger-Response.py', 
 # Stack Overflow Commands
 BotLibrary.AddCommandsFromFile(client, 'Commands/Commands_StackOverflow.py', globals())
 
+########################################## - LOAD COGS - #####################################################
+
+
+import os
+for cog in os.listdir(os.path.abspath("Cogs")):
+    if cog.endswith(".py"):
+        try:
+            cog = f"Cogs.{cog.replace('.py','')}"
+            client.load_extension(cog)
+            print("Loaded ",cog)
+        
+        except Exception as e:
+            print(f"{cog} cannot be loaded")
+            raise e
+
 ########################################## - RUN - #####################################################
 # Run the Client
 client.run(TOKEN)
