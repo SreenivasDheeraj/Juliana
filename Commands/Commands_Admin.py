@@ -74,3 +74,12 @@ async def unban(context , * , member ):
             print(f"Unbanned {user.name}#{user.discriminator}")
             await context.send(f"Unbanned {user.name}#{user.discriminator}")
             return 
+
+# Clear messages
+@client.command(name = "clear", pass_context = True, aliases = ["purge"] )
+@has_permissions(manage_messages = True)
+async def clear(self , context, amount = 5 ):
+    '''Delete a specified number of(default : 5) messages from server.'''
+    await context.channel.purge( limit=amount)
+    print(f"Cleared {amount} meassages.")
+    return
