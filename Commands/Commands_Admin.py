@@ -78,8 +78,7 @@ async def unban(context , * , member ):
 # Clear messages
 @client.command(name = "clear", pass_context = True, aliases = ["purge"] )
 @has_permissions(manage_messages = True)
-async def clear(self , context, amount = 5 ):
+async def clear(context, amount = 5 ):
     '''Delete a specified number of(default : 5) messages from server.'''
     await context.channel.purge( limit=amount)
     print(f"Cleared {amount} meassages.")
-    return
