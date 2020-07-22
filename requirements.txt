@@ -11,4 +11,3 @@ websockets>=6.0,<7.0
 chardet
 opuslib
 firestore
-webbrowser
