@@ -11,3 +11,5 @@ websockets>=6.0,<7.0
 chardet
 opuslib
 firestore
+aiohttp>=3.3.0,<3.6.0
+setuptools>=40.3.0
